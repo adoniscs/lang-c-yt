@@ -39,6 +39,38 @@ char jogar(char tabuleiro[][3], int posicao, char jogadorAtual)
   return 1;
 }
 
+char verificaVitoria(char tabuleiro[3][3])
+{
+
+  for (int i = 0; i < 3; i++)
+  {
+    if (tabuleiro[i][0] == tabuleiro[i][1] && tabuleiro[i][1] == tabuleiro[i][2])
+    {
+      return 1;
+    }
+
+    for (int i = 0; i < 3; i++)
+    {
+      if (tabuleiro[0][i] == tabuleiro[1][i] && tabuleiro[1][i] == tabuleiro[2][i])
+      {
+        return 1;
+      }
+    }
+
+    if (tabuleiro[0][0] == tabuleiro[1][1] && tabuleiro[1][1] == tabuleiro[2][2])
+    {
+      return 1;
+    }
+
+    if (tabuleiro[0][2] == tabuleiro[1][1] && tabuleiro[1][1] == tabuleiro[2][0])
+    {
+      return 1;
+    }
+  }
+
+  return 0;
+}
+
 int main(int argc, char *argv[])
 {
   char tabuleiro[3][3] = {
@@ -74,7 +106,20 @@ int main(int argc, char *argv[])
       continue;
     }
 
+    if (verificaVitoria(tabuleiro))
+    {
+      desenhaTabuleiro(tabuleiro);
+      printf("Jogador %c venceu!!!\n", jogadorAtual);
+      break;
+    }
+
     jogada++;
+  }
+
+  if (jogada == 9)
+  {
+    desenhaTabuleiro(tabuleiro);
+    printf("Deu velha!!!\n");
   }
 
   printf("Fim do jogo! Precione Enter para sair...\n");

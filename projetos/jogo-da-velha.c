@@ -3,7 +3,11 @@
 
 #define NUMERO_LINHAS 3
 #define NUMERO_COLUNAS 3
-
+/**
+ * o código \033 representra o ESC
+ * o comando [H move o cursor para a posição inicial (canto superior esquerdo)
+ * o comando [J limpa tudo a partir do cursor
+ */
 void limparTela()
 {
   printf("\033[H\033[J");

@@ -4,9 +4,14 @@
 #define NUMERO_LINHAS 3
 #define NUMERO_COLUNAS 3
 
+void limparTela()
+{
+  printf("\033[H\033[J");
+}
+
 void desenhaTabuleiro(char tabuleiro[NUMERO_LINHAS][NUMERO_COLUNAS])
 {
-  system("cls");
+  limparTela();
   printf("\n");
 
   for (int i = 0; i < NUMERO_LINHAS; i++)

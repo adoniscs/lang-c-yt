@@ -1,14 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void desenhaTabuleiro(char tabuleiro[3][3])
+#define NUMERO_LINHAS 3
+#define NUMERO_COLUNAS 3
+
+void desenhaTabuleiro(char tabuleiro[NUMERO_LINHAS][NUMERO_COLUNAS])
 {
   system("cls");
   printf("\n");
 
-  for (int i = 0; i < 3; i++)
+  for (int i = 0; i < NUMERO_LINHAS; i++)
   {
-    for (int j = 0; j < 3; j++)
+    for (int j = 0; j < NUMERO_COLUNAS; j++)
     {
       printf(" %c ", tabuleiro[i][j]);
       if (j < 2)
@@ -25,10 +28,10 @@ void desenhaTabuleiro(char tabuleiro[3][3])
   printf("\n");
 }
 
-char jogar(char tabuleiro[][3], int posicao, char jogadorAtual)
+char jogar(char tabuleiro[NUMERO_LINHAS][NUMERO_COLUNAS], int posicao, char jogadorAtual)
 {
-  int linha = (posicao - 1) / 3;
-  int coluna = (posicao - 1) % 3;
+  int linha = (posicao - 1) / NUMERO_LINHAS;
+  int coluna = (posicao - 1) % NUMERO_COLUNAS;
 
   if (tabuleiro[linha][coluna] != 'X' && tabuleiro[linha][coluna] != 'O')
   {
@@ -39,33 +42,29 @@ char jogar(char tabuleiro[][3], int posicao, char jogadorAtual)
   return 1;
 }
 
-char verificaVitoria(char tabuleiro[3][3])
+char verificaVitoria(char tabuleiro[NUMERO_LINHAS][NUMERO_COLUNAS])
 {
-
-  for (int i = 0; i < 3; i++)
+  for (int i = 0; i < NUMERO_LINHAS; i++)
   {
     if (tabuleiro[i][0] == tabuleiro[i][1] && tabuleiro[i][1] == tabuleiro[i][2])
     {
       return 1;
     }
 
-    for (int i = 0; i < 3; i++)
-    {
-      if (tabuleiro[0][i] == tabuleiro[1][i] && tabuleiro[1][i] == tabuleiro[2][i])
-      {
-        return 1;
-      }
-    }
-
-    if (tabuleiro[0][0] == tabuleiro[1][1] && tabuleiro[1][1] == tabuleiro[2][2])
+    if (tabuleiro[0][i] == tabuleiro[1][i] && tabuleiro[1][i] == tabuleiro[2][i])
     {
       return 1;
     }
+  }
 
-    if (tabuleiro[0][2] == tabuleiro[1][1] && tabuleiro[1][1] == tabuleiro[2][0])
-    {
-      return 1;
-    }
+  if (tabuleiro[0][0] == tabuleiro[1][1] && tabuleiro[1][1] == tabuleiro[2][2])
+  {
+    return 1;
+  }
+
+  if (tabuleiro[0][2] == tabuleiro[1][1] && tabuleiro[1][1] == tabuleiro[2][0])
+  {
+    return 1;
   }
 
   return 0;
@@ -73,7 +72,7 @@ char verificaVitoria(char tabuleiro[3][3])
 
 int main(int argc, char *argv[])
 {
-  char tabuleiro[3][3] = {
+  char tabuleiro[NUMERO_LINHAS][NUMERO_COLUNAS] = {
       '1', '2', '3',
       '4', '5', '6',
       '7', '8', '9'};
@@ -84,7 +83,8 @@ int main(int argc, char *argv[])
   {
     desenhaTabuleiro(tabuleiro);
 
-    printf("Jogador %c, escolha uma posicao (1-9): ", (jogada % 2 == 0 ? 'X' : 'O'));
+    printf("Jogador %c, escolha uma posicao (1-9): ",
+           (jogada % 2 == 0 ? 'X' : 'O'));
     scanf("%d", &posicao);
 
     if (posicao < 1 || posicao > 9)
